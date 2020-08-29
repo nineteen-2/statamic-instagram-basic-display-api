@@ -1,0 +1,24 @@
+{
+    "name": "nineteen/instagram",
+    "type": "statamic-addon",
+    "autoload": {
+        "psr-4": {
+            "Nineteen\\Instagram\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Instagram",
+            "description": "Instagram Feed addon using Instagram Basic Display API"
+        },
+        "laravel": {
+            "providers": [
+                "Nineteen\\Instagram\\ServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^7.3",
+        "espresso-dev/instagram-basic-display-php": "^1.1"
+    }
+}
