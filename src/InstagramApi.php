@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Nineteen\Instagram;
+namespace NineteenSquared\Instagram;
 
 use Carbon\Carbon;
 use EspressoDev\InstagramBasicDisplay\InstagramBasicDisplay;

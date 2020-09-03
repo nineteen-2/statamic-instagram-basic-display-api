@@ -1,10 +1,10 @@
 <?php
 
-Namespace Nineteen\Instagram\Http\Controllers;
+Namespace NineteenSquared\Instagram\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Nineteen\Instagram\InstagramApi;
+use NineteenSquared\Instagram\InstagramApi;
 use Statamic\Http\Controllers\CP\CpController;
 
 class InstagramLoginController extends CpController

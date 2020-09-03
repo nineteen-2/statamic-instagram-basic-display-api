@@ -1,6 +1,6 @@
 <?php
 
-namespace Nineteen\Instagram;
+namespace NineteenSquared\Instagram;
 
 use Statamic\Facades\CP\Nav;
 use Statamic\Facades\Permission;
@@ -13,7 +13,7 @@ class ServiceProvider extends AddonServiceProvider
     ];
 
     protected $tags = [
-        \Nineteen\Instagram\Tags\Instagram::class
+        \NineteenSquared\Instagram\Tags\Instagram::class
     ];
 
     public function boot()

@@ -1,9 +1,9 @@
 {
-    "name": "nineteen/instagram",
+    "name": "nineteensquared/instagram",
     "type": "statamic-addon",
     "autoload": {
         "psr-4": {
-            "Nineteen\\Instagram\\": "src"
+            "NineteenSquared\\Instagram\\": "src"
         }
     },
     "extra": {
@@ -13,7 +13,7 @@
         },
         "laravel": {
             "providers": [
-                "Nineteen\\Instagram\\ServiceProvider"
+                "NineteenSquared\\Instagram\\ServiceProvider"
             ]
         }
     },

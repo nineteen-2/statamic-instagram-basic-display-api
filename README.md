@@ -27,7 +27,7 @@ Follow the [getting started guide](https://developers.facebook.com/docs/instagra
 
 Require it using Composer.
 ```
-composer require nineteen/statamic-instagram-basic-display-api
+composer require nineteensquared/statamic-instagram-basic-display-api
 ```
 
 ## Configuration

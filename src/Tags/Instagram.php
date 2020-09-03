@@ -1,11 +1,11 @@
 <?php
 
-namespace Nineteen\Instagram\Tags;
+namespace NineteenSquared\Instagram\Tags;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Nineteen\Instagram\InstagramApi;
+use NineteenSquared\Instagram\InstagramApi;
 use Statamic\Tags\Tags;
 
 class Instagram extends Tags
