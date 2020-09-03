@@ -1,6 +1,7 @@
 {
     "name": "nineteensquared/instagram",
     "type": "statamic-addon",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "NineteenSquared\\Instagram\\": "src"
