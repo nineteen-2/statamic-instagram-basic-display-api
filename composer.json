@@ -1,5 +1,6 @@
 {
     "name": "nineteensquared/instagram",
+    "description": "Instagram feed for Statamic using Instagram Basic Display API",
     "type": "statamic-addon",
     "license": "MIT",
     "autoload": {
