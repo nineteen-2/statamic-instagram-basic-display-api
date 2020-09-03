@@ -52,13 +52,11 @@ and click on the **Login with Instagram** button.
 
 ```
 {{ instagram limit="6" as='ig')}}
-    <div class="mt-12 grid gap-10 max-w-lg mx-auto sm:grid-cols-3 md:max-w-none">
+    <div>
         {{ ig }}
-        <div class="flex flex-col shadow-lg bg-gray-100 overflow-hidden">
-            <a href="{{ permalink }}" target="_blank">
-                <img src="{{ thumbnail_url ?? media_url }}" alt="{{ caption }}" class="object-cover object-center">
+            <a href="{{ permalink }}" >
+                <img src="{{ thumbnail_url ?? media_url }}" alt="{{ caption }}" />
             </a>
-        </div>
         {{ /ig }}
     </div>
 {{ /instagram }}
