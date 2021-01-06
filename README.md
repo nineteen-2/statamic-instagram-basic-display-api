@@ -51,7 +51,7 @@ and click on the **Login with Instagram** button.
 ## Tag
 
 ```
-{{ instagram limit="6" as='ig')}}
+{{ instagram limit="6" as="ig" }}
     <div>
         {{ ig }}
             <a href="{{ permalink }}" >
