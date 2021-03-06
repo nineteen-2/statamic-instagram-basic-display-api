@@ -20,7 +20,7 @@
         }
     },
     "require": {
-        "php": "^7.3",
+        "php": "^7.3|^8.0",
         "espresso-dev/instagram-basic-display-php": "^1.1"
     }
 }
