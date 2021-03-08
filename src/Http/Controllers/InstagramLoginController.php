@@ -1,6 +1,6 @@
 <?php
 
-Namespace NineteenSquared\Instagram\Http\Controllers;
+namespace NineteenSquared\Instagram\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -35,7 +35,6 @@ class InstagramLoginController extends CpController
             'logoutUrl' => route('statamic.cp.nineteen-ig.logout'),
             'loginUrl' => $instagram->instagram_basic_display->getLoginUrl(),
         ]);
-
     }
 
     /**
@@ -68,7 +67,6 @@ class InstagramLoginController extends CpController
             // Get the OAuth callback code
             $code = $request->get('code');
             $instagram->saveAccessTokenFromCallbackCode($code);
-
         } catch (\Exception $exception) {
             Log::error($exception);
         }

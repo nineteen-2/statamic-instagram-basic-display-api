@@ -15,15 +15,15 @@ class Instagram extends Tags
      *
      * @return string|array
      */
-
     public function index()
     {
         $cache_key = config('statamic.instagram.cache.key_prefix').'_'.$this->params->get('limit');
 
         try {
-            if (!config('statamic.instagram.cache.duration')) {
+            if (! config('statamic.instagram.cache.duration')) {
                 return $this->getMedia($this->params->get('limit') ?: config('statamic.instagram.limit'));
             }
+
             return Cache::remember(
                 $cache_key,
                 now()->addSeconds(config('statamic.instagram.cache.duration')),
@@ -32,7 +32,8 @@ class Instagram extends Tags
                 }
             );
         } catch (\Exception $exception) {
-            Log::alert('Instagram error : ' .$exception->getMessage());
+            Log::alert('Instagram error : '.$exception->getMessage());
+
             return [];
         }
     }
@@ -42,8 +43,7 @@ class Instagram extends Tags
         $instagram = new InstagramApi();
 
         if ($instagram->getExpireDate() &&
-            $instagram->getExpireDate()->diffInDays(Carbon::now()) < config('statamic.instagram.token.days_before_expiration'))
-        {
+            $instagram->getExpireDate()->diffInDays(Carbon::now()) < config('statamic.instagram.token.days_before_expiration')) {
             $instagram->refreshToken();
         }
 
