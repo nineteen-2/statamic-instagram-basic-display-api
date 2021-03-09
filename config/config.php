@@ -14,8 +14,7 @@ return [
     'token' => [
         'storage_file' => 'nineteen/instagram/token.json',
 
-        'days_before_expiration' => 30 // Refresh token 30 days before expiration
+        'days_before_expiration' => 30, // Refresh token 30 days before expiration
     ],
-
 
 ];

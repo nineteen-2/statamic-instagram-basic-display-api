@@ -21,19 +21,19 @@ class InstagramApi
      */
     public function __construct()
     {
-        if($this->getAccessToken()) {
+        if ($this->getAccessToken()) {
             try {
                 $this->instagram_basic_display = new InstagramBasicDisplay($this->getAccessToken());
+
                 return;
             } catch (\Exception $exception) {
-
             }
         }
 
         $this->instagram_basic_display = new InstagramBasicDisplay([
             'appId' => config('statamic.instagram.appId'),
             'appSecret' => config('statamic.instagram.appSecret'),
-            'redirectUri' => route('statamic.cp.nineteen-ig.callback')
+            'redirectUri' => route('statamic.cp.nineteen-ig.callback'),
         ]);
     }
 
@@ -64,12 +64,9 @@ class InstagramApi
      */
     public function getExpireDate() : ? Carbon
     {
-        return $this->getStoredToken('expires_in')? Carbon::parse($this->getStoredToken('expires_in')) : null;
+        return $this->getStoredToken('expires_in') ? Carbon::parse($this->getStoredToken('expires_in')) : null;
     }
 
-    /**
-     *
-     */
     public function refreshToken() : void
     {
         $token = $this->instagram_basic_display->refreshToken($this->getStoredToken('access_token'), false);
@@ -82,11 +79,10 @@ class InstagramApi
     public function getUserProfile() : ? object
     {
         try {
-            if($this->instagram_basic_display) {
+            if ($this->instagram_basic_display) {
                 return $this->instagram_basic_display->getUserProfile();
             }
         } catch (\Exception $exception) {
-
         }
 
         return null;
@@ -100,7 +96,8 @@ class InstagramApi
     public function getUserMedia(int $limit = 12) : ? array
     {
         $media = $this->instagram_basic_display->getUserMedia('me', $limit);
-        return collect($media->data)->map(function($media) {
+
+        return collect($media->data)->map(function ($media) {
             return [
                 'id' => $media->id,
                 'caption' => isset($media->caption) ? $media->caption : null,
@@ -130,7 +127,7 @@ class InstagramApi
 
                 return $token[$key];
             } catch (\Exception $exception) {
-                Log::alert('Instagram error : ' .$exception->getMessage());
+                Log::alert('Instagram error : '.$exception->getMessage());
             }
         }
 
