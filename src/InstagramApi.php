@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Storage;
 
 class InstagramApi
 {
-
     const STATUS_NOT_CONFIGURED = 'NOT_CONFIGURED';
     const STATUS_NOT_CONNECTED = 'NOT_CONNECTED';
     const STATUS_HAS_ERROR = 'HAS_ERROR';
@@ -87,11 +86,11 @@ class InstagramApi
      */
     public function getUserProfile() : ? object
     {
-        if (!$this->instagram_basic_display || !$this->instagram_basic_display->getAccessToken()) {
+        if (! $this->instagram_basic_display || ! $this->instagram_basic_display->getAccessToken()) {
             return null;
         }
 
-        $userProfile =  $this->instagram_basic_display->getUserProfile();
+        $userProfile = $this->instagram_basic_display->getUserProfile();
 
         if (isset($userProfile->error)) {
             throw new InstagramException($userProfile->error->message);

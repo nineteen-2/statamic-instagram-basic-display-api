@@ -28,17 +28,15 @@ class InstagramLoginController extends CpController
         $instagramMedias = [];
 
         if (config('statamic.instagram.appId') && config('statamic.instagram.appSecret')) {
-
             try {
                 // dd($instagram);
                 $userProfile = $instagram->getUserProfile();
-                if (!$userProfile) {
+                if (! $userProfile) {
                     $status = InstagramApi::STATUS_NOT_CONNECTED;
                 } else {
                     $status = InstagramApi::STATUS_CONNECTED;
                     $instagramMedias = $instagram->getUserMedia(5);
                 }
-
             } catch (InstagramBasicDisplayException | InstagramException | \Exception $exception) {
                 $error = $exception->getMessage();
                 $status = InstagramApi::STATUS_HAS_ERROR;
@@ -55,7 +53,6 @@ class InstagramLoginController extends CpController
             'loginUrl' => $instagram->instagram_basic_display->getLoginUrl(),
         ]);
     }
-
 
     /**
      * @param InstagramApi $instagram
