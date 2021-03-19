@@ -4,11 +4,18 @@ namespace NineteenSquared\Instagram;
 
 use Carbon\Carbon;
 use EspressoDev\InstagramBasicDisplay\InstagramBasicDisplay;
+use EspressoDev\InstagramBasicDisplay\InstagramBasicDisplayException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class InstagramApi
 {
+
+    const STATUS_NOT_CONFIGURED = 'NOT_CONFIGURED';
+    const STATUS_NOT_CONNECTED = 'NOT_CONNECTED';
+    const STATUS_HAS_ERROR = 'HAS_ERROR';
+    const STATUS_CONNECTED = 'CONNECTED';
+
     /**
      * @var InstagramBasicDisplay
      */
@@ -75,17 +82,22 @@ class InstagramApi
 
     /**
      * @return object
+     * @throws InstagramBasicDisplayException
+     * @throws InstagramException
      */
     public function getUserProfile() : ? object
     {
-        try {
-            if ($this->instagram_basic_display) {
-                return $this->instagram_basic_display->getUserProfile();
-            }
-        } catch (\Exception $exception) {
+        if (!$this->instagram_basic_display || !$this->instagram_basic_display->getAccessToken()) {
+            return null;
         }
 
-        return null;
+        $userProfile =  $this->instagram_basic_display->getUserProfile();
+
+        if (isset($userProfile->error)) {
+            throw new InstagramException($userProfile->error->message);
+        }
+
+        return $userProfile;
     }
 
     /**

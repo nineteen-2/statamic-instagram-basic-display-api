@@ -2,9 +2,11 @@
 
 namespace NineteenSquared\Instagram\Http\Controllers;
 
+use EspressoDev\InstagramBasicDisplay\InstagramBasicDisplayException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use NineteenSquared\Instagram\InstagramApi;
+use NineteenSquared\Instagram\InstagramException;
 use Statamic\Http\Controllers\CP\CpController;
 
 class InstagramLoginController extends CpController
@@ -20,37 +22,40 @@ class InstagramLoginController extends CpController
     {
         $this->authorize('setup Instagram');
 
-        $status = 'NOT_CONFIGURED';
+        $status = InstagramApi::STATUS_NOT_CONFIGURED;
+        $userProfile = null;
+        $error = null;
+        $instagramMedias = [];
+
         if (config('statamic.instagram.appId') && config('statamic.instagram.appSecret')) {
-            $status = 'NOT_CONNECTED';
-        }
-        if ($instagram->getUserProfile()) {
-            $status = 'CONNECTED';
+
+            try {
+                // dd($instagram);
+                $userProfile = $instagram->getUserProfile();
+                if (!$userProfile) {
+                    $status = InstagramApi::STATUS_NOT_CONNECTED;
+                } else {
+                    $status = InstagramApi::STATUS_CONNECTED;
+                    $instagramMedias = $instagram->getUserMedia(5);
+                }
+
+            } catch (InstagramBasicDisplayException | InstagramException | \Exception $exception) {
+                $error = $exception->getMessage();
+                $status = InstagramApi::STATUS_HAS_ERROR;
+            }
         }
 
         return view('nineteen-ig::index', [
             'status' => $status,
-            'userProfile' => $instagram->getUserProfile(),
+            'error' => $error,
+            'instagramMedias' => $instagramMedias,
+            'userProfile' => $userProfile,
             'tokenExpireDate' => $instagram->getExpireDate(),
             'logoutUrl' => route('statamic.cp.nineteen-ig.logout'),
             'loginUrl' => $instagram->instagram_basic_display->getLoginUrl(),
         ]);
     }
 
-    /**
-     * @param InstagramApi $instagram
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function logout(InstagramApi $instagram)
-    {
-        $this->authorize('setup Instagram');
-
-        $instagram->logout();
-
-        return redirect(route('statamic.cp.nineteen-ig.index'));
-    }
 
     /**
      * @param InstagramApi $instagram

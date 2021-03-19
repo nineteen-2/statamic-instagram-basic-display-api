@@ -2,17 +2,32 @@
 @section('title', 'Instagram Login')
 
 @section('content')
+
     <div class="no-results md:pt-8 max-w-2xl mx-auto">
         <div class="w-full">
             <h1 class="mb-4">Instagram Connection</h1>
-
-            @if($status === 'CONNECTED')
+            @if(NineteenSquared\Instagram\InstagramApi::STATUS_HAS_ERROR === $status)
+                <p class="text-red mb-4">
+                    {{ $error  }}
+                </p>
+                <a href='{{ $logoutUrl }}' class="btn-danger btn">Logout</a>
+            @elseif(NineteenSquared\Instagram\InstagramApi::STATUS_CONNECTED === $status)
                 <p class="mb-1">Connected with account : <strong>{{ $userProfile->username }}</strong></p>
 
                 <p class="mb-4">Expiration date : {{ $tokenExpireDate->toIso8601String() }}</p>
 
+                <p class="mb-2">Last 5 medias from Instagram :</p>
+
+                @if(count($instagramMedias) > 0)
+                    <div class="flex mb-4">
+                    @foreach($instagramMedias as $media)
+                        <img src="{{ $media['thumbnail_url'] ?? $media['media_url'] }}" width="100" class="mr-1">
+                    @endforeach
+                    </div>
+                @endif
+
                 <a href='{{ $logoutUrl }}' class="btn-danger btn">Logout</a>
-            @elseif($status === 'NOT_CONNECTED')
+            @elseif(NineteenSquared\Instagram\InstagramApi::STATUS_NOT_CONNECTED === $status)
                 <a href='{{ $loginUrl }}' class="btn-primary btn-lg">Login with Instagram</a>
 
                 <div class="rounded p-3 lg:px-7 lg:py-5 shadow bg-white mt-4">
