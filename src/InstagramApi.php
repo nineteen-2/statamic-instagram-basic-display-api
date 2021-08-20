@@ -159,6 +159,6 @@ class InstagramApi
 
     private static function getTokenFilename()
     {
-        return config('statamic.instagram.token.days_before_expiration');
+        return config('statamic.instagram.token.storage_file');
     }
 }
