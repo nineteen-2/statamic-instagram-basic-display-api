@@ -1,3 +1,10 @@
+# DEPRECATED 
+
+Suggestion replacement:
+
+* https://statamic.com/addons/pixney/statamic-instagram-user-feed
+* https://statamic.com/addons/aniket-magadum/insta-feeds
+
 # Display a user Instagram Feed using Instagram Basic Display API
 
 ![Statamic 3.0+](https://img.shields.io/badge/Statamic-3.0+-FF269E?style=for-the-badge&link=https://statamic.com)
