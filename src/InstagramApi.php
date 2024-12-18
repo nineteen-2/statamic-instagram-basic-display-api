@@ -113,7 +113,7 @@ class InstagramApi
                 'id' => $media->id,
                 'caption' => isset($media->caption) ? $media->caption : null,
                 'media_type' => $media->media_type, // Can be IMAGE, VIDEO, or CAROUSEL_ALBUM.
-                'media_url' =>  $media->media_url,
+                'media_url' =>  $media->media_url ?? '',
                 'permalink' => $media->permalink,
                 'thumbnail_url' => isset($media->thumbnail_url) ? $media->thumbnail_url : null,
                 'timestamp' => $media->timestamp,
